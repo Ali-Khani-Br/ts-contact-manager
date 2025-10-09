@@ -7,12 +7,12 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "commonjs",
-    "target": "es2020",
+    "module": "CommonJS",
+    "target": "ES2020",
     "rootDir": "src",
     "outDir": "dist",
-    
     "types": ["node"],
+    
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
@@ -22,6 +22,7 @@
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
+
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": false,
     "exactOptionalPropertyTypes": false,
@@ -36,13 +37,14 @@
 
     // Recommended Options
     "strict": true,
-    "esModuleInterop": true,
-    "moduleResolution": "node",
     "jsx": "react-jsx",
     "verbatimModuleSyntax": false,
     "isolatedModules": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node"
   },
-  "include": ["src"]
+  "include": ["src", "src/api.ts"]
 }
