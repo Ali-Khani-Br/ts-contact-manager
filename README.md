@@ -1,19 +1,50 @@
-<p align="center">
-  <img src="https://img.shields.io/badge/TypeScript-5.x-blue" />
-  <img src="https://img.shields.io/badge/Node-20.x-brightgreen" />
-  <img src="https://img.shields.io/github/actions/workflow/status/Ali-Khani-Br/ts-contact-manager/ci.yml?label=CI" />
-  <img src="https://img.shields.io/badge/license-MIT-green" />
-</p>
+# Contact Manager (Node.js + TypeScript + React)
 
+A simple full-stack **Contact Manager** application built with **Express + TypeScript** on the backend and **React + Vite** on the frontend.  
+Supports full CRUD operations (Create, Read, Update, Delete) with local JSON file storage.
 
-# TS Contact Manager
+## Features
+- REST API with Express (GET, POST, PUT/PATCH, DELETE)
+- Type-safe backend and frontend (TypeScript)
+- React frontend with form to add, edit, and delete contacts
+- CORS enabled for frontend-backend communication
+- Easy to run locally and deployable to Render/Vercel
 
-A minimal **TypeScript** CLI app to manage contacts (CRUD) using Node.js `fs/promises` + JSON.
-Useful for learning TypeScript, async/await, and simple CLI patterns.
+## Project Structure
 
-## Run (dev)
+. ├─ src/ # Backend (Express + TS) ├─ client/ # Frontend (React + Vite + TS) ├─ data/contacts.json # Local storage └─ README.md
+
+## Getting Started
+
+### Backend
 ```bash
-npm run dev -- add --name "Ali" --email "ali@mail.com" --phone "123"
-npm run dev -- list
-npm run dev -- update --email "ali@mail.com" --phone "999" --name "Ali Reza" --newemail "ali2@mail.com"
-npm run dev -- remove --email "ali@mail.com"
+npm install
+npm run serve # runs on http://localhost:3000
+
+Frontend
+
+cd client
+npm install
+# create client/.env file:
+# VITE_API_URL=http://localhost:3000
+npm run dev # runs on http://localhost:5173
+
+API Endpoints
+
+GET /contacts → get all contacts
+
+POST /contacts → create a new contact
+
+PUT /contacts/:id → update a contact
+
+DELETE /contacts/:id → delete a contact
+
+
+Deployment
+
+Backend: Render (Build: npm run build, Start: npm start)
+
+Frontend: Vercel or Netlify (base folder client, build npm run build, output dist)
+
+Environment: VITE_API_URL=https://ts-contact-manager.onrender.com
+
