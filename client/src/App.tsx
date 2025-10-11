@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { getContacts, createContact, deleteContactApi, updateContactApi, type Contact } from "./api";
+import {
+  getContacts,
+  createContact,
+  deleteContactApi,
+  updateContactApi,
+} from "./api";
+import type { Contact } from "./api";
 import "./App.css";
 
 export default function App() {
@@ -17,7 +23,7 @@ export default function App() {
       const data = await getContacts();
       setContacts(data);
     } catch (e: any) {
-      setError(e.message);
+      setError(e.message || "Failed to load");
     } finally {
       setLoading(false);
     }
@@ -30,14 +36,20 @@ export default function App() {
   async function onAdd(e?: React.FormEvent) {
     e?.preventDefault();
     if (!name || !email) {
-      setError("Name and email required");
+      setError("Name and email are required");
       return;
     }
     try {
       setError(null);
-      const created = await createContact({ name, email, phone: phone || undefined });
+      const created = await createContact({
+        name,
+        email,
+        phone: phone || undefined,
+      });
       setContacts((s) => [created, ...s]);
-      setName(""); setEmail(""); setPhone("");
+      setName("");
+      setEmail("");
+      setPhone("");
     } catch (e: any) {
       setError(e.message);
     }
@@ -55,9 +67,9 @@ export default function App() {
 
   async function onUpdate(c: Contact) {
     const newName = prompt("New name:", c.name);
-    if (newName == null) return;
+    if (newName == null || !newName.trim()) return;
     try {
-      const updated = await updateContactApi(c.id, { name: newName });
+      const updated = await updateContactApi(c.id, { name: newName.trim() });
       setContacts((s) => s.map((x) => (x.id === updated.id ? updated : x)));
     } catch (e: any) {
       setError(e.message);
@@ -65,45 +77,92 @@ export default function App() {
   }
 
   return (
-    <div style={{ maxWidth: 900, margin: "24px auto", fontFamily: "system-ui, sans-serif" }}>
-      <h1>Contact Manager (React)</h1>
+    <div className="container">
+      <div className="header">
+        <h1 className="title">Contact Manager</h1>
+        <span className="subtitle">Express + TypeScript + React</span>
+      </div>
 
-      <form onSubmit={onAdd} style={{ marginBottom: 16 }}>
-        <input placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
-        <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
-        <button type="submit">Add</button>
-      </form>
+      <div className="card">
+        <form className="form" onSubmit={onAdd}>
+          <input
+            className="input"
+            placeholder="Name *"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            className="input"
+            placeholder="Email *"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            className="input"
+            placeholder="Phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+          <button className="btn" type="submit">
+            Add
+          </button>
+        </form>
 
-      {error && <div style={{ color: "red", marginBottom: 12 }}>{error}</div>}
+        {error && (
+          <div className="badge" role="alert" style={{ marginBottom: 10 }}>
+            {error}
+          </div>
+        )}
 
-      {loading ? (
-        <div>Loading…</div>
-      ) : (
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
-          <thead>
-            <tr>
-              <th style={{ textAlign: "left" }}>Name</th>
-              <th style={{ textAlign: "left" }}>Email</th>
-              <th style={{ textAlign: "left" }}>Phone</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {contacts.map((c) => (
-              <tr key={c.id}>
-                <td>{c.name}</td>
-                <td>{c.email}</td>
-                <td>{c.phone ?? "—"}</td>
-                <td>
-                  <button onClick={() => onUpdate(c)}>Edit</button>{" "}
-                  <button onClick={() => onDelete(c.id)}>Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+        <div className="table-wrap">
+          {loading ? (
+            <div style={{ padding: 16 }}>Loading…</div>
+          ) : (
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th style={{ textAlign: "right" }}>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {contacts.map((c) => (
+                  <tr key={c.id}>
+                    <td>{c.name}</td>
+                    <td>{c.email}</td>
+                    <td>{c.phone ?? "—"}</td>
+                    <td style={{ textAlign: "right" }}>
+                      <button className="btn-ghost" onClick={() => onUpdate(c)}>
+                        Edit
+                      </button>{" "}
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => onDelete(c.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+                {contacts.length === 0 && !loading && (
+                  <tr>
+                    <td colSpan={4} style={{ padding: 16, textAlign: "center", color: "#94a3b8" }}>
+                      No contacts yet — add your first one!
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          )}
+        </div>
+
+        <div className="footer">
+          <span>API:</span>
+          <code>{(import.meta as any).env?.VITE_API_URL ?? "http://localhost:3000"}</code>
+        </div>
+      </div>
     </div>
   );
 }
