@@ -38,7 +38,7 @@ ts-contact-manager/ ├── client/ # React + Vite frontend │ ├── src/
 ## 🧠 Run Locally
 1. Clone the repo  
    ```bash
-   git clone https://github.com/ErfanBashiri95/ts-contact-manager.git
+   git clone https://github.com/Ali-Khani-Br/ts-contact-manager.git
 
 2. Install dependencies
 
