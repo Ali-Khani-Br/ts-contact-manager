@@ -1,50 +1,69 @@
-# Contact Manager (Node.js + TypeScript + React)
 
-A simple full-stack **Contact Manager** application built with **Express + TypeScript** on the backend and **React + Vite** on the frontend.  
-Supports full CRUD operations (Create, Read, Update, Delete) with local JSON file storage.
+# 📇 Contact Manager (Full-Stack App)
 
-## Features
-- REST API with Express (GET, POST, PUT/PATCH, DELETE)
-- Type-safe backend and frontend (TypeScript)
-- React frontend with form to add, edit, and delete contacts
-- CORS enabled for frontend-backend communication
-- Easy to run locally and deployable to Render/Vercel
+A full-stack **Contact Manager** built with **TypeScript**, **Express.js**, and **React (Vite)**.  
+Users can **create, view, update, and delete contacts** in a clean interface.  
+The app demonstrates complete full-stack deployment with **CORS**, **environment configuration**, and **Render hosting**.
 
-## Project Structure
+---
 
-. ├─ src/ # Backend (Express + TS) ├─ client/ # Frontend (React + Vite + TS) ├─ data/contacts.json # Local storage └─ README.md
+## 🚀 Project Overview
+- Backend API built with **Express + TypeScript**
+- Frontend UI built with **React + Vite**
+- Deployed on **Render** (both frontend & backend)
+- Connected via RESTful API with CORS enabled
 
-## Getting Started
+---
 
-### Backend
-```bash
-npm install
-npm run serve # runs on http://localhost:3000
+## 🌐 Live Demo
+- **Frontend:** [https://ts-contact-manager-1.onrender.com](https://ts-contact-manager-1.onrender.com)  
+- **Backend (API):** [https://ts-contact-manager-api.onrender.com/contacts](https://ts-contact-manager-api.onrender.com/contacts)
 
-Frontend
+---
+
+## 🛠️ Tech Stack
+**Frontend:** React, TypeScript, Vite  
+**Backend:** Node.js, Express, TypeScript  
+**Database:** JSON-based (mock DB)  
+**Deployment:** Render (Frontend + API)
+
+---
+
+## 📂 Folder Structure
+
+ts-contact-manager/ ├── client/ # React + Vite frontend │ ├── src/ │ └── .env └── server/ # Express + TypeScript backend ├── src/ ├── contacts.json └── tsconfig.json
+
+---
+
+## 🧠 Run Locally
+1. Clone the repo  
+   ```bash
+   git clone https://github.com/ErfanBashiri95/ts-contact-manager.git
+
+2. Install dependencies
+
+cd server && npm install
+cd ../client && npm install
+
+
+3. Start backend
+
+cd server
+npm run dev
+
+
+4. Start frontend
 
 cd client
-npm install
-# create client/.env file:
-# VITE_API_URL=http://localhost:3000
-npm run dev # runs on http://localhost:5173
-
-API Endpoints
-
-GET /contacts → get all contacts
-
-POST /contacts → create a new contact
-
-PUT /contacts/:id → update a contact
-
-DELETE /contacts/:id → delete a contact
+npm run dev
 
 
-Deployment
 
-Backend: Render (Build: npm run build, Start: npm start)
 
-Frontend: Vercel or Netlify (base folder client, build npm run build, output dist)
+---
 
-Environment: VITE_API_URL=https://ts-contact-manager.onrender.com
+📄 Résumé Description
+
+Contact Manager (Full-Stack App) — Built with TypeScript, React, and Express.
+Deployed full-stack on Render with environment-based configuration and proper CORS setup.
 
